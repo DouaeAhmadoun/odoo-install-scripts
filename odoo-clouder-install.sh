@@ -75,13 +75,6 @@ IS_ENTERPRISE="False"
 OE_SUPERADMIN="admin-OE2017"
 OE_CONFIG="${OE_USER}-server"
 
-###  WKHTMLTOPDF download links
-## === Ubuntu Trusty x64 & x32 === (for other distributions please replace these two links,
-## in order to have correct version of wkhtmltox installed, for a danger note refer to
-## https://www.odoo.com/documentation/8.0/setup/install.html#deb ):
-WKHTMLTOX_X64=http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
-WKHTMLTOX_X32=http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-i386.deb
-
 
 echo "*********************************"
 echo "*                               *"
@@ -265,7 +258,6 @@ sudo su root -c "echo '#! /bin/sh' >> $OE_HOME_EXT/start.sh"
 sudo su root -c "echo 'sudo -u $OE_USER $OE_HOME_EXT/openerp-server --config=/etc/${OE_CONFIG}.conf' >> $OE_HOME_EXT/start.sh"
 sudo chmod 755 $OE_HOME_EXT/start.sh
 
-
 #--------------------------------------------------
 # Install additional Packages for Odoo
 #--------------------------------------------------
@@ -286,7 +278,16 @@ echo "*                               *"
 echo "*Install Wkhtmltopdf (if needed)*"
 echo "*                               *"
 echo "*********************************"
+
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
+
+  ###  WKHTMLTOPDF download links
+  ## === Ubuntu Trusty x64 & x32 === (for other distributions please replace these two links,
+  ## in order to have correct version of wkhtmltox installed, for a danger note refer to
+  ## https://www.odoo.com/documentation/8.0/setup/install.html#deb ):
+  WKHTMLTOX_X64=http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
+  WKHTMLTOX_X32=http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-i386.deb
+
   echo -e "\n---- Install wkhtml and place shortcuts on correct place for ODOO 9 ----"
   #pick up correct one from x64 & x32 versions:
   if [ "`getconf LONG_BIT`" == "64" ];then
